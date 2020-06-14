@@ -1,0 +1,243 @@
+<html>
+
+<head>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic" />
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.css" />
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/milligram/1.3.0/milligram.css" />
+  <!-- milligram is a minimal css library, that prettifies simple documents in a subtle way -->
+
+  <link rel="stylesheet" href="style.css" />
+  <title>ISV Assignment 2 - Tobias Braun</title>
+</head>
+
+<body>
+  <main>
+    <h2>ISV Assignment 2 - Tobias Braun</h2>
+    <hr />
+    <article id="solution">
+      <section id="dataset">
+        <h4>Abstract: Novel Coronavirus 2019 dataset analysis</h4>
+        <p>
+          The dataset tracks the spread of a recent pandemic and is collected
+          and managed by Johns Hopkins University Center for Systems Science
+          and Engineering (CSSE). It contains different csv files containing
+          various epidemiologic data. For example, there is time series data
+          providing the confirmed, recovered and death counts for different
+          countries given a date. There is also aggregated data combining the
+          time series data for key countries or worldwide. Additionally, there
+          is special us data containing iso standards and case numbers.
+          <br>
+          The dataset is analysed and insights are documented in this document.
+        </p>
+      </section>
+      <section id="initial">
+        <h4>Section 1 - Initial Analysis Questions</h4>
+        <hr />
+        <ol>
+          <li>
+            <b>Overarching: </b>How does the coronavirus spread through
+            different countries?
+          </li>
+          <li>
+            How strongly does the spread speed differ from country to country?
+          </li>
+          <li>
+            Where do the differences come from? Population size? Wealth?
+          </li>
+          <li>How does the mortality rate differ?</li>
+          <li>Is there a decrease to the increase observable?</li>
+          <li>
+            How long does it take till the usual first pandemic wave is over?
+            (first top point reached)
+          </li>
+        </ol>
+      </section>
+      <section id="analysis">
+        <h4>Section 2 - Data Analysis and Insights</h4>
+        <hr />
+        <div class="chart-container">
+          <img class="legend" src="confirmed-rate-worldwide-legend.png" alt="" />
+          <img class="chart" src="confirmed-rate-worldwide.png" />
+        </div>
+        <p>
+          The Diagram shows the number of confirmed cases worldwide.
+          It can be observed, that the number of cases was relatively low until match 15th.
+          It grew exponentially unril end of march. Then it linearly increases in a straight line.
+          Also, the worldwide increase rate is encoded as the width of the line. The increase rate was very high between
+          january and february,
+          with several peaks. After that it decreased, until it rose up again between march and april.
+          Concluding from this data, it seems that key events of the spread happended between january and february, and
+          also between may and april.
+
+        </p>
+        <div class="chart-container">
+          <img class="legend" src="worldwide-overview-area-legend.png" alt="" />
+          <img class="chart" src="worldwide-overview-area.png" />
+        </div>
+        <p>
+          The Diagram above shows the confirmed cases in relation to recovered and death cases. On top, the numbers are
+          shown on a linear scale.
+          On this graph, it can be seen that the death and recovered numbers grow steadily relative to the number of
+          confirmed cases.
+          The recovered cases end up about half of the confirmed cases, the death count is about one 15th of the
+          confirmed cases at the end of the time series.
+          <br>
+          On the diagram below, the same data is shown on a logarithmic scale (base 2).
+          The growth phases between jan-feb and mar-april are clearly observable from the slope of the logarithmic
+          scale.
+          Also, it appears that between february and march, the fraction of recovered cases increased.
+          As the pandemic moved from china to europe, in china not many people got infected. Meanwhile in Europe, the
+          pandemic had to spread first, before beeing able to infect many people.
+          Therefore, many People recovered while few got infected.
+          <br>
+          The two sudden increases in cases are also observable in this chart. (~ 01/31, 02/13 <a href="https://www.nytimes.com/2020/02/13/world/asia/coronavirus-numbers-explain.html">[NY Times, Feb 13. "How
+          the Coronavirus Numbers Changed So Sharply"</a>])
+          It seems like additional numbers appeared here, or the way of counting changed. This could obsviously be a
+          slight data quality problem.
+
+        </p>
+        <div class="chart-container">
+          <img src="map-confirmed-legend.png" alt="map confirmed cases" class="legend">
+          <img src="map-confirmed.png" alt="" class="chart">
+        </div>
+        <p>
+          The map above shows the number of confirmed cases per state. It can be observed, that the US is standing out
+          by far with over 1.6 million confirmed cases.
+          Many cases can also be observed in Russia, Brasilia, and Westeuropean countries like italia, spain, france,
+          the uk and germany.
+          Afrika, Australia, and most of South America do not seem to be strongly affected. (maybe the virus spreads
+          faster to wealthy countries, due to increases travel?).
+          Also, cold countries are not strongly affected (apart from russia). This could be because of the cold, but
+          also because of the usually decreased population density in these countries.
+          In conclusion, it seems that the virus is spreading faster in not cold, wealthy and dense areas.
+        </p>
+        <div class="chart-container">
+          <img src="map-deaths-legend.png" alt="map confirmed cases" class="legend">
+          <img src="map-deaths.png" alt="" class="chart">
+        </div>
+        <p>
+          The next map shows the absolute number of deaths in the countries. The picture is similar to the map above.
+          US has by far the most absoulte deaths, Brasilia, the UK, Italy, France and Spain also have a great death
+          count.
+          What's interesting is, that Russia does not have many deaths compared to its confirmed size.
+        </p>
+        <div class="chart-container">
+          <img src="map-deathrate-legend.png" alt="map confirmed cases" class="legend">
+          <img src="map-deathrate.png" alt="" class="chart">
+        </div>
+        <p>
+          In the next map, the death rate (deaths / confirmed) is shown.
+          This map differs from the two above substantially.
+          First, the deathrate of the US is not worse than in other countries, but actually pretty average.
+          The UK, France and the UK have bad deathrates. Also, Sweden has a yellow colored deathrate.
+          This is interesting, as based on absolute numbers, it is not hardly affected.
+          Some African countries also have not green deathrates, but overall the remaining picture is the same as in
+          the diagrams above.
+          The worst deathrate is from yemen, but that might be
+          due to statistical differences as only 212 Persons were confirmed.
+          <br>
+          The deathrates vary by a great amount (from almost zero to 18%).
+          These variance can not be statistical, there must either be a change in the virus (unlikely) or some
+          error in the data. Infact, there are many data quality problems, which are explained further later. (Section
+          2)
+        </p>
+        <hr>
+        <p>
+          Concluding from the three world maps:
+        <ol>
+          <li>US is by far the most affected country.</li>
+          <li>Wealthy, not cold countries are affected more</li>
+          <li>Deathrates in wealthy countries are not better than in poor countries, even though the healthcare system
+            is better</li>
+          <li>Deathrate varies by a great amount -> even in similar healthcare situations. Must be because of data
+            quality issues</li>
+        </ol>
+        </p>
+        <div class="chart-container">
+          <img src="chart-cases-by-country-legend.png" alt="" class="legend legend-by-country">
+          <img src="chart-cases-by-country.png" alt="chart cases by country" class="chart">
+        </div>
+        <p>
+          The epidemic usually takes place in three phases: First, there is a phase of exponential growth.
+          Second, there is a phase of linear growth. and third, there is a decline in cases.
+          Usually, it take three weeks from an exponential to a linear growth.
+          The first country to be affected by the coronavirus was china.
+          Following china were Iran and Italy. For Italy, the exponential growth phase lasted about four weeks,
+          for Iran a little bit less. The growth rate in Italy was steeper though.
+          In the end, Italy ends up with a lot more cases than Iran.
+          Following Italy and Iran, France, Germany and Spain were affected. After that the UK and US were affected.
+          <br>
+          Interesting to nice is, that countries that are affected later, do not tend to be better prepared for the pandemic.
+          It seems like the countries were not able to use the additional time to decrease the spread rate.
+        </p>
+        <hr>
+        <p>
+          The following analysis will <b>focus on the US</b>, as it is the most affected country, and there is special data for
+          it in the provided dataset.
+        </p>
+        <div class="chart-container">
+          <img src="map-cases-by-city-legend.png" alt="" class="legend legend-citymap">
+          <img src="map-cases-by-city.png" alt="chart cases by country" class="chart">
+        </div>
+        <p>
+          The death cases per city map shows the amount of death cases per city.
+          It is clearly observable that most of the death cases are in New York.
+          Some are also in California, the <b>rural areas of the country are relatively unaffected however</b>.
+        </p>
+        <div class="chart-container">
+          <img src="death-share-tree-legend.png" alt="" class="legend ">
+          <img src="death-share-tree.png" alt="chart cases by country" class="chart">
+        </div>
+        <p>
+          If we observe the death count in a tree map, this fact is even more clear.
+          Almost half of the area is covered by New York only. (New York does not account for half of the deaths in the us, some data appears to be missing.)
+          So why is <b>New York</b> so heavily affected?
+        </p>
+        <div class="chart-container">
+          <img src="death-per-state-legend.png" alt="" class="legend legend-deathcomp">
+          <img src="death-per-state.png" alt="chart cases by country" class="chart">
+        </div>
+        <p>
+          On the chart above, the death count per state is depicted as a bar chart. The Size of the bar determines the state population.
+          We can see, that (in a general trend) - the more population a state has, the more people are affected.
+          But the population of California is higher than the one of New York. So maybe, there is only a correlation - not a causal relation - between population and case numbers.
+          The case numbers could be more dependant on the <b>population density</b>.
+          Sadly, population density data is missing in this dataset.
+        </p>
+        <div class="chart-container">
+          <img src="boxplot-cases.png" alt="chart cases by country" class="chart">
+        </div>
+        <p>
+          In the boxplot chart, no spreading of the cases can be observed.
+          (States with low case numbers are not getting closer to states that already have high case numbers).
+          Therefore it seems, that infection through travel is almost non existant, as the case numbers are not spreading out into rural areas.
+          Atleast, there is no traffic from urban to rural areas in any significant way.
+          Instead, the case numbers of different states get denser (on a logarythmic scale).
+        </p>
+      </section>
+      <section id="data-quality">
+        <h4>Section 3 - Data quality issues</h4>
+        <hr>
+        <p>
+          There are many data quality issues, that make analysing this dataset hard, and the results from the data partly irrelevant.
+          First, not all cases are confirmed, so the difference between confirmed cases and actual cases can vary drasticly.
+          Also, the way of counting confirmed cases also differs from country to country, and is even changed (as for example in china) sometimes.
+          Additionally, there might by false positives or false negatives on corona death cases, and here the way of counting matters as well.
+          <br>
+          Many additional features would have been interesting to research, but the data for that was missing.
+          For example, correlating population density with amount of death / confirmed cases might be working - but there is no data to confirm it.
+          Further, no good indicators for healthcare power are provided, that might further help to understand why the coronavirus spread the way it did,
+          and certain areas are affected how they are.
+          <br>
+          All in all though, the situation is generally most likely to complex to analyze with data.
+          There are many geographical features that have an influence on the spread of the virus.
+          Also, there are events that might have spread the virus further.
+          It is not easy to take all that into account.
+          Therefore, the analysis of the coronavirus spread proves to be a hard problem.
+        </p>
+      </section>
+    </article>
+  </main>
+</body>
+
+</html>

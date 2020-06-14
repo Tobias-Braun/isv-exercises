@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<meta charset="utf-8" />
+<title>
+  Visualization of the appropriateness of certain behaviors in different
+  situations
+</title>
+<style>
+  body {
+    margin: 50px;
+    font-family: Arial;
+  }
+
+  .height-measure:hover,
+  .background-box:hover+.height-measure {
+    /* color on hover of bar or quadratic tile */
+    opacity: 1;
+  }
+
+  .legend {
+    font: italic 13px sans-serif;
+    color: black;
+  }
+
+  .appr-number {
+    display: none;
+    text-align: center;
+  }
+
+  g.cols:hover .comp-bar {
+    display: unset;
+  }
+
+  .comp-bar {
+    display: none;
+  }
+
+  .height-measure:hover+.appr-number,
+  .background-box:hover+.height-measure+.appr-number,
+  .appr-number:hover {
+    /* color on hover of bar or quadratic tile */
+    display: unset;
+    opacity: 1;
+  }
+</style>
+
+<body>
+  <p>Tobias Braun</p>
+  <h1>
+    Visualization of the appropriateness of certain behaviors in different
+    situations
+  </h1>
+  <p>Exercise 1 - Task 1</p>
+  <p>
+    Course <i>Informations- und Softwarevisualisierung</i>, Universität
+    Duisburg-Essen, SoSe 2020
+  </p>
+  <script src="https://d3js.org/d3.v5.min.js"></script>
+  <script>
+    /* JavaScript */
+
+    /* Appropriateness ratings (row: situations; columns: behavior) */
+    var data = [
+      [
+        2.52,
+        6.21,
+        2.1,
+        8.17,
+        4.23,
+        3.6,
+        3.62,
+        7.27,
+        1.21,
+        1.77,
+        5.33,
+        1.79,
+        2.21,
+        6.23,
+        1.94,
+      ],
+      [
+        5.0,
+        8.56,
+        8.73,
+        3.62,
+        7.79,
+        3.77,
+        3.12,
+        2.88,
+        3.58,
+        2.23,
+        4.5,
+        4.42,
+        3.04,
+        8.0,
+        3.79,
+      ],
+      [
+        1.44,
+        8.08,
+        4.27,
+        4.87,
+        5.48,
+        7.04,
+        5.17,
+        7.17,
+        1.52,
+        2.15,
+        4.17,
+        3.12,
+        3.08,
+        7.1,
+        3.0,
+      ],
+      [
+        2.56,
+        8.52,
+        4.92,
+        2.58,
+        8.44,
+        2.29,
+        2.54,
+        3.96,
+        1.67,
+        2.5,
+        3.25,
+        2.29,
+        3.21,
+        7.13,
+        1.96,
+      ],
+      [
+        7.94,
+        8.42,
+        7.71,
+        7.0,
+        8.13,
+        5.63,
+        5.4,
+        7.77,
+        3.06,
+        5.0,
+        5.06,
+        7.42,
+        5.21,
+        8.1,
+        6.92,
+      ],
+      [
+        1.38,
+        3.29,
+        2.38,
+        2.85,
+        1.38,
+        1.77,
+        3.52,
+        3.58,
+        0.62,
+        1.42,
+        1.92,
+        1.71,
+        3.13,
+        2.6,
+        1.33,
+      ],
+      [
+        1.94,
+        8.46,
+        1.08,
+        4.85,
+        1.73,
+        0.75,
+        1.31,
+        2.48,
+        1.04,
+        1.21,
+        1.83,
+        1.48,
+        1.37,
+        5.88,
+        1.65,
+      ],
+      [
+        5.58,
+        8.19,
+        4.75,
+        3.38,
+        4.83,
+        1.46,
+        4.96,
+        4.81,
+        1.46,
+        2.81,
+        4.08,
+        3.54,
+        3.71,
+        7.4,
+        4.88,
+      ],
+      [
+        2.46,
+        4.98,
+        6.21,
+        2.73,
+        7.48,
+        4.08,
+        4.13,
+        1.73,
+        1.37,
+        2.58,
+        1.71,
+        2.31,
+        7.15,
+        7.94,
+        2.42,
+      ],
+      [
+        1.96,
+        8.25,
+        5.17,
+        5.38,
+        7.67,
+        2.9,
+        6.21,
+        4.71,
+        1.9,
+        5.04,
+        4.31,
+        3.75,
+        3.44,
+        8.23,
+        4.13,
+      ],
+      [
+        1.63,
+        7.4,
+        4.79,
+        3.04,
+        5.1,
+        1.31,
+        5.12,
+        4.48,
+        1.58,
+        2.54,
+        2.58,
+        2.12,
+        3.48,
+        6.77,
+        1.73,
+      ],
+      [
+        2.83,
+        7.25,
+        2.81,
+        3.46,
+        2.35,
+        2.83,
+        5.04,
+        4.75,
+        1.77,
+        5.12,
+        3.48,
+        3.65,
+        4.79,
+        5.9,
+        3.52,
+      ],
+      [
+        6.15,
+        8.58,
+        8.52,
+        8.29,
+        7.94,
+        8.85,
+        7.67,
+        8.58,
+        4.25,
+        6.81,
+        7.52,
+        6.73,
+        8.0,
+        8.17,
+        6.44,
+      ],
+      [
+        4.4,
+        7.88,
+        6.54,
+        7.73,
+        7.19,
+        6.08,
+        5.5,
+        8.56,
+        2.4,
+        4.0,
+        4.88,
+        4.58,
+        3.88,
+        7.75,
+        3.6,
+      ],
+      [
+        4.12,
+        8.08,
+        5.08,
+        4.56,
+        8.04,
+        2.98,
+        5.23,
+        3.69,
+        2.04,
+        3.85,
+        4.98,
+        7.12,
+        4.31,
+        7.9,
+        7.94,
+      ],
+    ];
+    const data_transposed = data[0].map((col, i) => data.map((row) => row[i]));
+    console.log(data, data_transposed)
+    const colLabels = [
+      "Class",
+      "Date",
+      "Bus",
+      "Family dinner",
+      "Park",
+      "Church",
+      "Job interview",
+      "Sidewalk",
+      "Movies",
+      "Bar",
+      "Elevator",
+      "Restroom",
+      "Own room",
+      "Dorm lounge",
+      "Football game",
+    ];
+    const rowLabels = [
+      "Run",
+      "Talk",
+      "Kiss",
+      "Write",
+      "Eat",
+      "Sleep",
+      "Mumble",
+      "Read",
+      "Fight",
+      "Belch",
+      "Argue",
+      "Jump",
+      "Cry",
+      "Laugh",
+      "Shout",
+    ];
+    console.log(
+      data.length,
+      data[0].length,
+      colLabels.length,
+      rowLabels.length
+    );
+
+    /* Layout constants */
+    const width = 960,
+      height = 1100;
+
+    const MAX_APPR = d3.max(data.flat()); // flatten array [][] to []
+    const MIN_APPR = d3.min(data.flat());
+    console.log(MAX_APPR, MIN_APPR); // from 8.85 to 0.62 -> will choose 0 and 10 as baseline as it is a good scale
+
+    const TOP_APPR = 10;
+    const BOT_APPR = 0;
+
+    const color_for_appr_percent = (appr_percent) =>
+      `rgb(${Math.round(
+        255 * (2 * Math.min(0.55, 1 - appr_percent))
+      )},${Math.round(220 * 2 * Math.min(appr_percent, 0.55))},0)`;
+
+    const add = (a, b) => a + b;
+    const similarity = (a, b) =>
+      10 -
+      Math.sqrt(a.map((e, i) => Math.pow(a[i] - b[i], 2)).reduce(add, 0)) / 2.2;
+    console.log(
+      "max",
+      d3.max(
+        data
+          .map((col1) => data.map((col2) => similarity(col1, col2)))
+          .flat()
+      )
+    ); // ~ 22 to 0 -> divide by 2.2
+    console.log(
+      "min",
+      d3.min(
+        data
+          .map((col1) => data.map((col2) => similarity(col1, col2)))
+          .flat()
+      )
+    ); // 0 -> 0 is a good min
+    // not taking the full color range because it would get too dark in some cases.
+
+    /* Initialization of SVG graphics */
+    const svg = d3
+      .select("body")
+      .append("svg")
+      .attr("width", width)
+      .attr("height", height);
+
+    svg
+      .append("defs")
+      .append("linearGradient")
+      .attr("id", "legend-gradient")
+      .selectAll("stop")
+      .data([0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1])
+      .enter()
+      .append("stop")
+      .each(function (d, i) {
+        d3.select(this)
+          .attr("offset", i + "0%")
+          .attr("stop-color", color_for_appr_percent(d));
+      });
+    svg
+      .append("rect")
+      .attr("x", 100)
+      .attr("y", 940)
+      .attr("width", 380)
+      .attr("height", 30)
+      .attr("fill", "url('#legend-gradient'");
+    svg
+      .append("text")
+      .text("appropriateness / similarity from 0 (red) to 10 (green)")
+      .attr("x", 100)
+      .attr("y", 1000);
+
+    svg
+      .selectAll("g.cols text.legend")
+      .data(colLabels)
+      .enter()
+      .append("g")
+      .attr("class", "cols")
+      .each(function (d, i) {
+        d3.select(this)
+          .append("text")
+          .attr("class", "legend")
+          .attr("x", 115 + 42 * i)
+          .attr("y", 300)
+          .attr("transform", `rotate(-45,${115 + 42 * i},${300})`)
+          .text(d);
+        d3.select(this)
+          .append("rect")
+          .attr("class", "situation-selector")
+          .attr("x", 100 + 42 * i)
+          .attr("y", 200)
+          .attr("width", 40)
+          .attr("height", 100)
+          .attr("opacity", 0);
+        d3.select(this)
+          .selectAll("g.cols .situation-selector g.comp")
+          .data(data)
+          .enter()
+          .append("g")
+          .attr("class", "comp")
+          .each(function (d, j) {
+            d3.select(this)
+              .append("rect")
+              .attr("class", "comp-bar")
+              .attr("x", 100 + 42 * j)
+              .attr(
+                "y",
+                200 - 20 * similarity(data[i], data[j])
+              )
+              .attr("width", 40)
+              .attr(
+                "height",
+                20 * similarity(data[i], data[j])
+              )
+              .attr(
+                "fill",
+                color_for_appr_percent(
+                  similarity(data[i], data[j]) / 10
+                )
+              );
+          });
+      });
+    svg
+      .selectAll("g.rows text.legend")
+      .data(rowLabels)
+      .enter()
+      .append("g")
+      .attr("class", "rows")
+      .each(function (d, i) {
+        d3.select(this)
+          .append("text")
+          .attr("class", "legend")
+          .attr("x", 45)
+          .attr("y", 330 + 42 * i)
+          .text(d);
+      });
+
+    svg
+      .selectAll("g.action")
+      .data(data)
+      .enter()
+      .append("g")
+      .attr("class", "action")
+      .each(function (d, i) {
+        d3.select(this)
+          .selectAll("g.action g")
+          .data(d)
+          .enter()
+          .append("g")
+          .attr("class", "situation")
+          .each(function (d, j) {
+            drawPair(this, d, i, j);
+          });
+      });
+    /* Draw appropriateness for a situation-behavior pair */
+    function drawPair(element, appropriateness, i, j) {
+      console.log(colLabels[i] + " - " + rowLabels[j] + ": " + appropriateness);
+      const appropriateness_percent = appropriateness / TOP_APPR;
+      d3.select(element)
+        .append("rect")
+        .attr("class", "background-box") // needed to create hover effect for hovering over the tile instead of the colored bar
+        .attr("x", 100 + i * 42)
+        .attr("y", 300 + j * 42)
+        .attr("width", 40)
+        .attr("height", 40)
+        .attr("fill", "white");
+      d3.select(element)
+        .append("rect")
+        .attr("class", "height-measure")
+        .attr("x", 100 + i * 42)
+        .attr("y", 300 + j * 42 + 40 - 40 * appropriateness_percent)
+        .attr("width", 40)
+        .attr("height", 40 * appropriateness_percent)
+        .attr("fill", color_for_appr_percent(appropriateness_percent))
+        .attr("opacity", 0.8);
+      d3.select(element)
+        .append("text")
+        .attr("class", "appr-number")
+        .attr("x", 100 + i * 42)
+        .attr("y", 330 + j * 42)
+        .attr("width", 40)
+        .attr("height", 40)
+        .text(" " + appropriateness)
+        .attr("opacity", 0.8);
+    }
+  </script>
+
+  <h2>Explanation of your solution</h2>
+
+  <p>
+    <b>(a) </b><br />
+    Chose to compare the situations as columns, as i can then compare with bar height instead of width later for c).
+    Generally, the height and color of bars compare the two metrics (appropriateness, similarity) from 0 to 10.
+    0 to 10 were chosen because they were for appropriateness the natural boundaries (with a bit of padding). The
+    padding is actually good, because it rounds the numbers (for a better intuitive understanding).
+    Additionally I think it is good to have the lowest number not be at actual metric range baseline (0 here), as then
+    no bar would be displayed and so there would be no color. With this range chosen here, still a slim bar is displayed
+    and the color can be observed.
+  </p>
+
+  <p><b>(b) </b>If a user wants to know more about a specific element, I assume that he/she hovers on it. Therefore I
+    just displayed the numbers on hover over the elements.</p>
+
+  <p><b>(c) </b>To calculate the similarity, i just interpreted the appropriateness of situations as a vector and
+    calculated the distance (basically negative similarity).
+    I used every action value because I do not know about the use case this visualization is for or how important
+    certain parts of the data are. Also I do not have an agenda with this visualization.
+    Therefore my best solution is to use all data I have in a "fair" way.
+    I saw that the range of the distance was 0 to 22 (with a bit padding).
+    To make the numbers more intuitive I divide by 2.2. Now I substract this result from 10 to flip the values to get
+    actual similarity instead of distance.
+    The result can be observed by hovering over the situation text.
+  </p>
+
+  <h2>Sources</h2>
+
+  <ul>
+    <li>
+      <a href="http://innovis.cpsc.ucalgary.ca/supplemental/Data-Sketching/">An Exploratory Study of Data Sketching for
+        Visual Representations</a>
+    </li>
+    <li>
+      <a href="http://stackoverflow.com/questions/35728448/loop-through-array-of-arrays-in-d3">Loop through array of
+        arrays in D3</a>
+    </li>
+    <li>[Your sources ...]</li>
+  </ul>
+</body>

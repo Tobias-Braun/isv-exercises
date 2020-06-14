@@ -1,0 +1,47 @@
+#canvas {
+  width: 1920px;
+  height: 2160px;
+}
+
+.filebox {
+  fill: white;
+  stroke: black;
+  stroke-width: 1px;
+}
+
+.filebox g {
+  width: 100%;
+  height: 100%;
+}
+
+.line {
+  z-index: 2;
+}
+
+div.lens {
+  position: absolute;
+  padding: 8px;
+  border-radius: 4px;
+  background-color: #fafafa;
+  box-shadow: 1px 1px 4px rgba(57, 57, 58, 0.4);
+}
+
+div.lens pre {
+  margin: 0;
+  padding: 0;
+}
+
+div.lens code {
+  margin: 0;
+  padding: 4;
+  background-color: white;
+  font: 12px "Fira Code", monospace;
+  resize: none;
+  box-shadow: none;
+  border: none;
+  overflow: hidden;
+}
+
+text {
+  font-size: 14px;
+}

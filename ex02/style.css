@@ -1,0 +1,51 @@
+main {
+  padding: 2.5vw;
+}
+h4 {
+  margin-top: 2.5rem;
+}
+hr {
+  border-top: 0.25rem solid #f4f5f6;
+  margin: 1rem;
+}
+
+main {
+  max-width: 960px;
+  margin: auto;
+}
+
+section {
+  margin-top: 2.3rem;
+}
+.chart-container {
+  position: relative;
+  margin: 3rem 0;
+}
+.chart {
+  width: 100%;
+  border: 0.5px solid rgba(2, 2, 2, 0.3);
+}
+
+.legend {
+  position: absolute;
+  left: 60px;
+  top: 45px;
+  margin: auto;
+  margin-top: 0;
+  border: 0.5px solid rgba(2, 2, 2, 0.3);
+}
+.legend-by-country {
+  width: 70px;
+  height: 300px;
+  left: 80px;
+  top: 115px;
+}
+.legend-citymap {
+  width: 90px;
+  height: 150px;
+  top: calc(300px + 5rem);
+  left: 10px;
+}
+.legend-deathcomp {
+  left: 700px;
+}
